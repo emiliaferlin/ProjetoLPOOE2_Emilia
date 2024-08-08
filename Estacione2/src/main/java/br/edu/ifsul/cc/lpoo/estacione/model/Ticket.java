@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,13 +37,16 @@ public class Ticket implements Serializable{
     @Column(name = "valor_total", columnDefinition = "decimal(12,2)")
     private double valorTotal;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "carro_id")
     private Carro carro;
     
+    @ManyToOne
+    @JoinColumn(name = "vaga_id")
+    private Vaga vaga;
+    
     @Column(name = "hora_entrada", nullable = false)
     private int horaEntrada;
-    
 
     @Column(name = "hora_saida", nullable = false)
     private int horaSaida;
@@ -112,6 +117,16 @@ public class Ticket implements Serializable{
     public void setHoraSaida(int horaSaida) {
         this.horaSaida = horaSaida;
     }
+
+    public Vaga getVaga() {
+        return vaga;
+    }
+
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
+    }
+    
+    
     
     
     

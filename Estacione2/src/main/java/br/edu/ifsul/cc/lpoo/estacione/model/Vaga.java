@@ -5,8 +5,10 @@
 package br.edu.ifsul.cc.lpoo.estacione.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+
 import javax.persistence.Table;
 
 /**
@@ -41,9 +44,8 @@ public class Vaga implements Serializable{
     @JoinColumn(name = "estacionamento_id")
     private Estacionamento estacionamento;
 
-    @OneToOne
-    @JoinColumn(name = "carro_id")
-    private Carro carro;
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Ticket ticket;
 
     public Vaga() {
     }
@@ -80,14 +82,14 @@ public class Vaga implements Serializable{
         this.disponivel = disponivel;
     }
 
-    public Carro getCarro() {
-        return carro;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setCarro(Carro carro) {
-        this.carro = carro;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
     
-    
+
     
 }

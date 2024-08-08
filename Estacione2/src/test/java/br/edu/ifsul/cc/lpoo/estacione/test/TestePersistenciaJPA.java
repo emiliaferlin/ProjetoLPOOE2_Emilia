@@ -126,17 +126,17 @@ public class TestePersistenciaJPA {
         primeiraVaga.setNumero(10);
         primeiraVaga.setDisponivel(false);
         primeiraVaga.setEstacionamento(estacione);
-        primeiraVaga.setCarro(fiesta);
+        primeiraVaga.setTicket(ticket1);
         //Segunda Vaga
         segundaVaga.setNumero(11);
         segundaVaga.setDisponivel(false);
         segundaVaga.setEstacionamento(estacione);
-        segundaVaga.setCarro(uno);
+        segundaVaga.setTicket(ticket2);
         //Terceira Vaga
         terceiraVaga.setNumero(12);
         terceiraVaga.setDisponivel(false);
         terceiraVaga.setEstacionamento(estacione);
-        terceiraVaga.setCarro(fusca);
+        terceiraVaga.setTicket(ticket3);
         //Quarta Vaga
         quartaVaga.setNumero(13);
         quartaVaga.setDisponivel(true);

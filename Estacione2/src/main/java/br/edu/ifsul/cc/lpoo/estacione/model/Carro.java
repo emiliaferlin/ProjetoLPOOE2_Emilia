@@ -37,13 +37,12 @@ public class Carro implements Serializable{
     
     @Column(name = "cor", nullable = false, length = 30)
     private String cor;
-    
-    
+       
     @ManyToOne
     @JoinColumn(name = "estacionamento_id")
     private Estacionamento estacionamento;
 
-    @OneToOne(mappedBy = "carro", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Ticket ticket;
 
     public Carro() {
