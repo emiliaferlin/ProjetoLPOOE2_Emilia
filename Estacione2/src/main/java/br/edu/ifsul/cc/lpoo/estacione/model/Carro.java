@@ -42,7 +42,9 @@ public class Carro implements Serializable{
     @JoinColumn(name = "estacionamento_id")
     private Estacionamento estacionamento;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    
+    @OneToOne
+    @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
     public Carro() {
@@ -63,6 +65,10 @@ public class Carro implements Serializable{
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+    
+    
+    
+   
     
     public Integer getId() {
         return id;

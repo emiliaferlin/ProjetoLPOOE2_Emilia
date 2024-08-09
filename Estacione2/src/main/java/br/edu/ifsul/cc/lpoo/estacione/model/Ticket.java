@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -53,6 +51,23 @@ public class Ticket implements Serializable{
 
     public Ticket() {
     }
+
+    public Carro getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Carro carro) {
+        this.carro = carro;
+    }
+
+    public Vaga getVaga() {
+        return vaga;
+    }
+
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
+    }
+    
     
     
     public double calcularValorTotalTicket() {
@@ -94,13 +109,7 @@ public class Ticket implements Serializable{
     }
     
 
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
+  
 
     public int getHoraEntrada() {
         return horaEntrada;
@@ -118,13 +127,7 @@ public class Ticket implements Serializable{
         this.horaSaida = horaSaida;
     }
 
-    public Vaga getVaga() {
-        return vaga;
-    }
-
-    public void setVaga(Vaga vaga) {
-        this.vaga = vaga;
-    }
+  
     
     
     

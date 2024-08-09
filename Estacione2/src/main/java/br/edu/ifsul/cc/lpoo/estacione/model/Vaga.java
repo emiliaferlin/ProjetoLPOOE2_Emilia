@@ -44,7 +44,8 @@ public class Vaga implements Serializable{
     @JoinColumn(name = "estacionamento_id")
     private Estacionamento estacionamento;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
     public Vaga() {
@@ -57,6 +58,16 @@ public class Vaga implements Serializable{
     public void setEstacionamento(Estacionamento estacionamento) {
         this.estacionamento = estacionamento;
     }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    
 
     public Integer getId() {
         return id;
@@ -81,15 +92,12 @@ public class Vaga implements Serializable{
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
     
-
+    
+    @Override
+    public String toString(){
+        return "Número vaga: " + getNumero() + " Disponível: " + getTicket();
+    }
+   
     
 }

@@ -4,6 +4,12 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.view;
 
+import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mili
@@ -13,8 +19,11 @@ public class ListagemVagas extends javax.swing.JFrame {
     /**
      * Creates new form listagemVagas
      */
-    public ListagemVagas() {
+    PersistenciaJPA persistencia;
+    public ListagemVagas(){
         initComponents();
+        persistencia = new PersistenciaJPA();
+        atualizarListaVagas();
     }
 
     /**
@@ -28,19 +37,35 @@ public class ListagemVagas extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        listVagas = new javax.swing.JList<>();
+        voltar = new javax.swing.JButton();
+        adicionarVaga = new javax.swing.JButton();
+        removerVaga = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Listagem das Vagas do Estacione");
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listVagas);
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                voltarActionPerformed(evt);
+            }
+        });
+
+        adicionarVaga.setText("Adicionar");
+        adicionarVaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarVagaActionPerformed(evt);
+            }
+        });
+
+        removerVaga.setText("Remover");
+        removerVaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerVagaActionPerformed(evt);
             }
         });
 
@@ -57,8 +82,11 @@ public class ListagemVagas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(adicionarVaga)
+                        .addGap(77, 77, 77)
+                        .addComponent(removerVaga)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(voltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -69,17 +97,70 @@ public class ListagemVagas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(voltar)
+                    .addComponent(adicionarVaga)
+                    .addComponent(removerVaga))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_voltarActionPerformed
 
+    private void adicionarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarVagaActionPerformed
+        Vaga v = new Vaga();
+        v.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Informe o número da Vaga:")));
+
+        persistencia = new PersistenciaJPA();
+        persistencia.conexaoAberta();
+        persistencia.persist(v);
+        persistencia.fecharConexao();
+        JOptionPane.showMessageDialog(null, "Vaga adicionada com sucesso!");
+        atualizarListaVagas();
+    }//GEN-LAST:event_adicionarVagaActionPerformed
+
+    private void removerVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVagaActionPerformed
+       Vaga modalidadeSelecionada = listVagas.getSelectedValue();
+        if (modalidadeSelecionada != null) {
+            int confirmacaoDel = JOptionPane.showConfirmDialog(rootPane,
+                    "Tem certeza que deseja remover esta vaga " + modalidadeSelecionada.getNumero());
+            if (confirmacaoDel == JOptionPane.YES_OPTION) {
+                try {
+                    persistencia = new PersistenciaJPA();
+                    persistencia.conexaoAberta();
+                    persistencia.remover(modalidadeSelecionada);
+                    persistencia.fecharConexao();
+                    atualizarListaVagas();
+
+                } catch (Exception e) {
+                    System.err.println("Erro ao excluir Vaga: " + e.getMessage());
+                } finally {
+                    persistencia.fecharConexao();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Nenhuma vaga selecionada");
+        }
+    }//GEN-LAST:event_removerVagaActionPerformed
+    
+    private void atualizarListaVagas() {
+        listVagas.clearSelection();
+        persistencia.conexaoAberta();
+        List<Vaga> vag = persistencia.listaVagas();
+        DefaultListModel<Vaga> vagas = new DefaultListModel<>();
+        for (Vaga m : vag) {
+            vagas.addElement(m);
+        }
+        
+        listVagas.setModel(vagas);
+        persistencia.fecharConexao();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -117,9 +198,11 @@ public class ListagemVagas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton adicionarVaga;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Vaga> listVagas;
+    private javax.swing.JButton removerVaga;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }
