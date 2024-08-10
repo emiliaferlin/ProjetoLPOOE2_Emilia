@@ -32,11 +32,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="removeCarro" alignment="0" min="-2" pref="361" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="listaVagas" pref="361" max="32767" attributes="0"/>
-                              <Component id="addcarro" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="telaCarros" alignment="0" min="-2" pref="361" max="-2" attributes="0"/>
+                          <Component id="listaVagas" min="-2" pref="361" max="-2" attributes="0"/>
                           <Component id="tickets" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -66,14 +63,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="descricao" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="listaVagas" min="-2" pref="28" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="addcarro" min="-2" pref="28" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="removeCarro" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="tickets" min="-2" pref="28" max="-2" attributes="0"/>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <Component id="listaVagas" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="telaCarros" min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="tickets" min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Component id="sair" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -99,20 +94,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaVagasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="addcarro">
+    <Component class="javax.swing.JButton" name="telaCarros">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Chegou Carro"/>
+        <Property name="text" type="java.lang.String" value="Carros"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addcarroActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="removeCarro">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Saiu Carro"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeCarroActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="telaCarrosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="tickets">

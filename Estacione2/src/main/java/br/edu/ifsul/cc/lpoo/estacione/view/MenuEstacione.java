@@ -29,8 +29,7 @@ public class MenuEstacione extends javax.swing.JFrame {
         bemVindo = new javax.swing.JLabel();
         descricao = new javax.swing.JLabel();
         listaVagas = new javax.swing.JButton();
-        addcarro = new javax.swing.JButton();
-        removeCarro = new javax.swing.JButton();
+        telaCarros = new javax.swing.JButton();
         tickets = new javax.swing.JButton();
         sair = new javax.swing.JButton();
 
@@ -47,17 +46,10 @@ public class MenuEstacione extends javax.swing.JFrame {
             }
         });
 
-        addcarro.setText("Chegou Carro");
-        addcarro.addActionListener(new java.awt.event.ActionListener() {
+        telaCarros.setText("Carros");
+        telaCarros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addcarroActionPerformed(evt);
-            }
-        });
-
-        removeCarro.setText("Saiu Carro");
-        removeCarro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeCarroActionPerformed(evt);
+                telaCarrosActionPerformed(evt);
             }
         });
 
@@ -87,10 +79,8 @@ public class MenuEstacione extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(removeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(listaVagas, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                                .addComponent(addcarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(telaCarros, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(listaVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tickets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -111,14 +101,12 @@ public class MenuEstacione extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descricao)
                 .addGap(34, 34, 34)
-                .addComponent(listaVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addcarro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(removeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(listaVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(telaCarros, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tickets, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(sair)
                 .addContainerGap())
         );
@@ -131,20 +119,18 @@ public class MenuEstacione extends javax.swing.JFrame {
         listagemVagas.setVisible(true);
     }//GEN-LAST:event_listaVagasActionPerformed
 
-    private void removeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCarroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_removeCarroActionPerformed
+    private void telaCarrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telaCarrosActionPerformed
+        TelaCarros telaCarros = new TelaCarros();
+        telaCarros.setVisible(true);
+    }//GEN-LAST:event_telaCarrosActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_sairActionPerformed
 
-    private void addcarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addcarroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addcarroActionPerformed
-
     private void ticketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketsActionPerformed
-        // TODO add your handling code here:
+        TelaTickets telaTickets = new TelaTickets();
+        telaTickets.setVisible(true);
     }//GEN-LAST:event_ticketsActionPerformed
 
     /**
@@ -173,7 +159,6 @@ public class MenuEstacione extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuEstacione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -184,12 +169,11 @@ public class MenuEstacione extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addcarro;
     private javax.swing.JLabel bemVindo;
     private javax.swing.JLabel descricao;
     private javax.swing.JButton listaVagas;
-    private javax.swing.JButton removeCarro;
     private javax.swing.JButton sair;
+    private javax.swing.JButton telaCarros;
     private javax.swing.JButton tickets;
     // End of variables declaration//GEN-END:variables
 }

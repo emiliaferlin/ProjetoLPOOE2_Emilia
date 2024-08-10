@@ -2,19 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.edu.ifsul.cc.lpoo.estacione.view;
+package br.edu.ifsul.cc.lpoo.estacione.view.cadastros;
+
+import br.edu.ifsul.cc.lpoo.estacione.dao.CarroAtualizadoListner;
 
 /**
  *
  * @author Mili
  */
-public class RemoverCarro extends javax.swing.JFrame {
+public class DadosCarros extends javax.swing.JFrame {
 
     /**
-     * Creates new form RemoverCarro
+     * Creates new form DadosCarros
      */
-    public RemoverCarro() {
+    public DadosCarros() {
         initComponents();
+    }
+    
+    private CarroAtualizadoListner listener;
+
+    public void setListener(CarroAtualizadoListner listener) {
+        this.listener = listener;
+    }
+
+    private void fecharTelaCadastro() {
+        if (listener != null) {
+            listener.onCarroAtualizada();
+        }
+        dispose();
     }
 
     /**
@@ -59,20 +74,20 @@ public class RemoverCarro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RemoverCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DadosCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RemoverCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DadosCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RemoverCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DadosCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RemoverCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DadosCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RemoverCarro().setVisible(true);
+                new DadosCarros().setVisible(true);
             }
         });
     }

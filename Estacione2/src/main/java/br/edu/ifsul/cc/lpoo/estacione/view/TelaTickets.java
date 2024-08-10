@@ -4,6 +4,14 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.view;
 
+import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.lpoo.estacione.dao.TicketAtualizadoListner;
+import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
+import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosTickets;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mili
@@ -13,8 +21,11 @@ public class TelaTickets extends javax.swing.JFrame {
     /**
      * Creates new form TelaTickets
      */
+    PersistenciaJPA persistencia;
     public TelaTickets() {
         initComponents();
+        persistencia = new PersistenciaJPA();
+        atualizarListaTickets();
     }
 
     /**
@@ -26,22 +37,150 @@ public class TelaTickets extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listTickets = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        btNovo = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        btRemover = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setViewportView(listTickets);
+
+        jLabel1.setText("Listagem de Tickets");
+
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
+        btRemover.setText("Remover");
+        btRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverActionPerformed(evt);
+            }
+        });
+
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btNovo)
+                        .addGap(39, 39, 39)
+                        .addComponent(btEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(btRemover)
+                        .addGap(37, 37, 37)
+                        .addComponent(btVoltar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btNovo)
+                    .addComponent(btEditar)
+                    .addComponent(btRemover)
+                    .addComponent(btVoltar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        DadosTickets telaCarro = new DadosTickets();
+        telaCarro.setListener(new TicketAtualizadoListner() {
+                @Override
+                public void onTicketAtualizado() {
+                    atualizarListaTickets();
+                }
+            });
+        telaCarro.setVisible(true);
+        atualizarListaTickets();
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        Ticket ticketSelecionada = listTickets.getSelectedValue();
+        if (ticketSelecionada != null) {
+            int confirmacaoDel = JOptionPane.showConfirmDialog(rootPane,
+                    "Tem certeza que deseja remover este ticket " + ticketSelecionada.getNumero());
+            if (confirmacaoDel == JOptionPane.YES_OPTION) {
+                try {
+                    persistencia = new PersistenciaJPA();
+                    persistencia.conexaoAberta();
+                    persistencia.remover(ticketSelecionada);
+                    persistencia.fecharConexao();
+                    atualizarListaTickets();
+
+                } catch (Exception e) {
+                    System.err.println("Erro ao excluir Ticket: " + e.getMessage());
+                } finally {
+                    persistencia.fecharConexao();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Nenhuma ticket selecionada");
+        }
+    }//GEN-LAST:event_btRemoverActionPerformed
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
+    
+    private void atualizarListaTickets() {
+        listTickets.clearSelection();
+        persistencia.conexaoAberta();
+        List<Ticket> tic = persistencia.listaTicktes();
+        DefaultListModel<Ticket> tickets = new DefaultListModel<>();
+        for (Ticket t : tic) {
+            tickets.addElement(t);
+        }
+        
+        listTickets.setModel(tickets);
+        persistencia.fecharConexao();
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -78,5 +217,12 @@ public class TelaTickets extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btNovo;
+    private javax.swing.JButton btRemover;
+    private javax.swing.JButton btVoltar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Ticket> listTickets;
     // End of variables declaration//GEN-END:variables
 }

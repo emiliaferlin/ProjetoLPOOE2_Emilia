@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_ticket")
+@NamedQueries({@NamedQuery(name="Ticket.orderbyid", query="select t from Ticket t order by t.id asc")})
 public class Ticket implements Serializable{
     
     @Id
@@ -129,8 +132,10 @@ public class Ticket implements Serializable{
 
   
     
-    
-    
+    @Override
+    public String toString(){
+        return "Número ticket: " + getNumero() + " valor total: " + getValorTotal();
+    }
     
     
 }

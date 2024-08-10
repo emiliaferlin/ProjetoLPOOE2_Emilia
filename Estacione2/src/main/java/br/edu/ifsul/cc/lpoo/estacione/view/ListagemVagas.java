@@ -5,7 +5,9 @@
 package br.edu.ifsul.cc.lpoo.estacione.view;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.lpoo.estacione.dao.VagaAtualizarListner;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
+import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosVaga;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -108,31 +110,31 @@ public class ListagemVagas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_voltarActionPerformed
 
     private void adicionarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarVagaActionPerformed
-        Vaga v = new Vaga();
-        v.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Informe o número da Vaga:")));
-
-        persistencia = new PersistenciaJPA();
-        persistencia.conexaoAberta();
-        persistencia.persist(v);
-        persistencia.fecharConexao();
-        JOptionPane.showMessageDialog(null, "Vaga adicionada com sucesso!");
+        DadosVaga telaVaga = new DadosVaga();
+        telaVaga.setListener(new VagaAtualizarListner() {
+                @Override
+                public void onVagaAtualizada() {
+                    atualizarListaVagas();
+                }
+            });
+        telaVaga.setVisible(true);
         atualizarListaVagas();
     }//GEN-LAST:event_adicionarVagaActionPerformed
 
     private void removerVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVagaActionPerformed
-       Vaga modalidadeSelecionada = listVagas.getSelectedValue();
-        if (modalidadeSelecionada != null) {
+       Vaga vagaSelecionada = listVagas.getSelectedValue();
+        if (vagaSelecionada != null) {
             int confirmacaoDel = JOptionPane.showConfirmDialog(rootPane,
-                    "Tem certeza que deseja remover esta vaga " + modalidadeSelecionada.getNumero());
+                    "Tem certeza que deseja remover esta vaga " + vagaSelecionada.getNumero());
             if (confirmacaoDel == JOptionPane.YES_OPTION) {
                 try {
                     persistencia = new PersistenciaJPA();
                     persistencia.conexaoAberta();
-                    persistencia.remover(modalidadeSelecionada);
+                    persistencia.remover(vagaSelecionada);
                     persistencia.fecharConexao();
                     atualizarListaVagas();
 

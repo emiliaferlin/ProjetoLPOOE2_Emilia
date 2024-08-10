@@ -5,12 +5,7 @@
 package br.edu.ifsul.cc.lpoo.estacione.test;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
-import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
 import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
-import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
-import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
-import java.util.Calendar;
-import java.util.Collection;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
