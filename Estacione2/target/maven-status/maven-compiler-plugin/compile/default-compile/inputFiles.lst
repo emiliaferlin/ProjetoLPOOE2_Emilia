@@ -4,13 +4,13 @@ C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\model\Ticket.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\dao\VagaAtualizarListner.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\dao\CarroAtualizadoListner.java
-C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\TelaCarros.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosTickets.java
-C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\TelaTickets.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\dao\TicketAtualizadoListner.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\model\Vaga.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\model\Carro.java
+C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\dao\PersistenciaJPA.java
+C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\ListagemTickets.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\ListagemVagas.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\model\Estacionamento.java
 C:\Users\Mili\Desktop\ProjetoLPOOE2_Emilia\Estacione2\src\main\java\br\edu\ifsul\cc\lpoo\estacione\view\MenuEstacione.java

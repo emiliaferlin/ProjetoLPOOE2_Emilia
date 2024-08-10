@@ -43,6 +43,7 @@ public class ListagemVagas extends javax.swing.JFrame {
         voltar = new javax.swing.JButton();
         adicionarVaga = new javax.swing.JButton();
         removerVaga = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +72,13 @@ public class ListagemVagas extends javax.swing.JFrame {
             }
         });
 
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,9 +93,11 @@ public class ListagemVagas extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(adicionarVaga)
-                        .addGap(77, 77, 77)
-                        .addComponent(removerVaga)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btEditar)
+                        .addGap(34, 34, 34)
+                        .addComponent(removerVaga)
+                        .addGap(36, 36, 36)
                         .addComponent(voltar)))
                 .addContainerGap())
         );
@@ -102,7 +112,8 @@ public class ListagemVagas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltar)
                     .addComponent(adicionarVaga)
-                    .addComponent(removerVaga))
+                    .addComponent(removerVaga)
+                    .addComponent(btEditar))
                 .addContainerGap())
         );
 
@@ -149,6 +160,30 @@ public class ListagemVagas extends javax.swing.JFrame {
                     "Nenhuma vaga selecionada!");
         }
     }//GEN-LAST:event_removerVagaActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        Vaga vagaSelecionada = listVagas.getSelectedValue();
+        //persistencia.conexaoAberta();
+        if (vagaSelecionada != null) {
+            DadosVaga telaVaga = new DadosVaga();
+            
+            telaVaga.setVaga(vagaSelecionada);
+            telaVaga.setListener(new VagaAtualizarListner() {
+                @Override
+                public void onVagaAtualizada() {
+                    atualizarListaVagas();
+                }
+            });
+            telaVaga.setVisible(true);
+
+
+           
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma vaga antes");
+        }
+        
+        atualizarListaVagas();
+    }//GEN-LAST:event_btEditarActionPerformed
     
     private void atualizarListaVagas() {
         listVagas.clearSelection();
@@ -201,6 +236,7 @@ public class ListagemVagas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarVaga;
+    private javax.swing.JButton btEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Vaga> listVagas;

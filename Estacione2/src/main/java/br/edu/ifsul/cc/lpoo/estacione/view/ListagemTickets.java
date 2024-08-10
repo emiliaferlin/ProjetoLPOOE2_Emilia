@@ -123,19 +123,39 @@ public class ListagemTickets extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        DadosTickets telaCarro = new DadosTickets();
-        telaCarro.setListener(new TicketAtualizadoListner() {
+        DadosTickets telaTicket = new DadosTickets();
+        telaTicket.setListener(new TicketAtualizadoListner() {
                 @Override
                 public void onTicketAtualizado() {
                     atualizarListaTickets();
                 }
             });
-        telaCarro.setVisible(true);
+        telaTicket.setVisible(true);
         atualizarListaTickets();
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        Ticket ticketSelecionada = listTickets.getSelectedValue();
+        //persistencia.conexaoAberta();
+        if (ticketSelecionada != null) {
+            DadosTickets telaTicket = new DadosTickets();
+            
+            telaTicket.setTickets(ticketSelecionada);
+            telaTicket.setListener(new TicketAtualizadoListner() {
+                @Override
+                public void onTicketAtualizado() {
+                    atualizarListaTickets();
+                }
+            });
+            telaTicket.setVisible(true);
+
+
+           
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um ticket antes");
+        }
+        
+        atualizarListaTickets();
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed

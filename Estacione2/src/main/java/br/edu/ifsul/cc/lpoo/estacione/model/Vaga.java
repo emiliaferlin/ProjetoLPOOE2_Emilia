@@ -73,6 +73,7 @@ public class Vaga implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
+    
 
     public int getNumero() {
         return numero;

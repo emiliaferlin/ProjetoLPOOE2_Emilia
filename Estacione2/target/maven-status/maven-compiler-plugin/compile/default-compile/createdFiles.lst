@@ -34,7 +34,9 @@ br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosCarros$5.class
 br\edu\ifsul\cc\lpoo\estacione\dao\TicketAtualizadoListner.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemTickets.class
 br\edu\ifsul\cc\lpoo\estacione\model\Carro.class
+br\edu\ifsul\cc\lpoo\estacione\view\ListagemTickets$7.class
 br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosVaga$3.class
+br\edu\ifsul\cc\lpoo\estacione\view\ListagemVagas$6.class
 br\edu\ifsul\cc\lpoo\estacione\view\MenuEstacione$1.class
 br\edu\ifsul\cc\lpoo\estacione\model\Ticket.class
 br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosCarros$2.class
@@ -44,6 +46,7 @@ br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosCarros$1.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros$4.class
 br\edu\ifsul\cc\lpoo\estacione\view\MenuEstacione$4.class
 br\edu\ifsul\cc\lpoo\estacione\dao\VagaAtualizarListner.class
+br\edu\ifsul\cc\lpoo\estacione\view\ListagemVagas$7.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros$1.class
 br\edu\ifsul\cc\lpoo\estacione\Estacione$1.class
 br\edu\ifsul\cc\lpoo\estacione\model\Ticket_.class

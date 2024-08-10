@@ -7,6 +7,7 @@ package br.edu.ifsul.cc.lpoo.estacione.view.cadastros;
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.dao.VagaAtualizarListner;
 import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
+import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,10 +24,12 @@ public class DadosVaga extends javax.swing.JFrame {
      * Creates new form DadosVaga
      */
     PersistenciaJPA persistencia;
+    private Vaga vaga;
     public DadosVaga() {
         initComponents();
         persistencia = new PersistenciaJPA();
         listarEstacione();
+        listarTickets();
     }
     
     private VagaAtualizarListner listener;
@@ -42,6 +45,21 @@ public class DadosVaga extends javax.swing.JFrame {
         dispose();
     }
     
+    
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
+        carregarDadosVaga();
+    }
+
+    private void carregarDadosVaga() {
+        if (vaga != null) {
+            numero.setText(Integer.toString(vaga.getNumero()));
+            disponibilidade.setText(Boolean.toString(vaga.isDisponivel()));
+            listEstacione.setSelectedItem(vaga.getEstacionamento());
+            listTicket.setSelectedItem(vaga.getTicket());
+        }
+    }
+    
     public void listarEstacione() {
         listEstacione.removeAll();
         persistencia = new PersistenciaJPA();
@@ -49,6 +67,18 @@ public class DadosVaga extends javax.swing.JFrame {
         List<Estacionamento> list = persistencia.getEstacione();
         for (Estacionamento p : list) {
             listEstacione.addItem(p);
+        }
+
+        persistencia.fecharConexao();
+    }
+    
+    public void listarTickets() {
+        listTicket.removeAll();
+        persistencia = new PersistenciaJPA();
+        persistencia.conexaoAberta();
+        List<Ticket> list = persistencia.listaTicktes();
+        for (Ticket p : list) {
+            listTicket.addItem(p);
         }
 
         persistencia.fecharConexao();
@@ -74,6 +104,8 @@ public class DadosVaga extends javax.swing.JFrame {
         disponibilidade = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         listEstacione = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        listTicket = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +145,8 @@ public class DadosVaga extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Ticket: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,24 +159,27 @@ public class DadosVaga extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(listTicket, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
@@ -162,7 +199,11 @@ public class DadosVaga extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(listEstacione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(listTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar))
@@ -180,7 +221,13 @@ public class DadosVaga extends javax.swing.JFrame {
   
         try {
             persistencia.conexaoAberta();
-            Vaga a = new Vaga();
+            Vaga a;
+            if(vaga != null){
+               a = (Vaga) persistencia.find(Vaga.class, vaga.getId()); 
+            }else{
+                a = new Vaga();
+            }
+            
             if(numero.getText().isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Insira o número da vaga!");
                 return;
@@ -194,8 +241,16 @@ public class DadosVaga extends javax.swing.JFrame {
             Estacionamento est = (Estacionamento) listEstacione.getSelectedItem();
             a.setEstacionamento(est);
             
+            Ticket tic = (Ticket) listTicket.getSelectedItem();
+            a.setTicket(tic);
+            
             persistencia.persist(a);
-            JOptionPane.showMessageDialog(rootPane, "Vaga cadastrada!");
+            if(vaga != null){
+                JOptionPane.showMessageDialog(rootPane, "Vaga editada!");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Vaga cadastrada!");
+            }
+            
         } catch (Exception ex) {
           Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -252,9 +307,11 @@ public class DadosVaga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<Estacionamento> listEstacione;
+    private javax.swing.JComboBox<Ticket> listTicket;
     private javax.swing.JTextArea numero;
     // End of variables declaration//GEN-END:variables
 }

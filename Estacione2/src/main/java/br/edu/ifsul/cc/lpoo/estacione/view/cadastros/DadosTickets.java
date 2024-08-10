@@ -25,6 +25,7 @@ public class DadosTickets extends javax.swing.JFrame {
      * Creates new form DadosTickets
      */
     PersistenciaJPA persistencia;
+    private Ticket ticket;
     public DadosTickets() {
         initComponents();
         persistencia = new PersistenciaJPA();
@@ -67,6 +68,20 @@ public class DadosTickets extends javax.swing.JFrame {
         }
 
         persistencia.fecharConexao();
+    }
+    
+    public void setTickets(Ticket ticket) {
+        this.ticket = ticket;
+        carregarDadosTickets();
+    }
+
+    private void carregarDadosTickets() {
+        if (ticket != null) {
+            nTicket.setText(Integer.toString(ticket.getNumero()));
+            dataSaida.setText(Integer.toString(ticket.getHoraSaida()));
+            listCarro.setSelectedItem(ticket.getCarro());
+            listVaga.setSelectedItem(ticket.getVaga());
+        }
     }
 
     /**
@@ -228,7 +243,12 @@ public class DadosTickets extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
             persistencia.conexaoAberta();
-            Ticket a = new Ticket();
+            Ticket a;
+            if(ticket != null){
+               a = (Ticket) persistencia.find(Ticket.class, ticket.getId()); 
+            }else{
+                a = new Ticket();
+            }
             if(nTicket.getText().isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Insira o número do ticket!");
                 return;
@@ -242,8 +262,8 @@ public class DadosTickets extends javax.swing.JFrame {
             if(dataSaida.getText().isEmpty()){
                 
             }else{
-                a.setValorTotal(a.calcularValorTotalTicket());
                 a.setHoraSaida(Integer.parseInt(dataSaida.getText()));
+                a.setValorTotal(a.calcularValorTotalTicket());  
             }
             
             Carro car = (Carro) listCarro.getSelectedItem();
@@ -254,7 +274,12 @@ public class DadosTickets extends javax.swing.JFrame {
             
             
             persistencia.persist(a);
-            JOptionPane.showMessageDialog(rootPane, "Ticket cadastrado!");
+            if(ticket != null){
+                JOptionPane.showMessageDialog(rootPane, "Ticket editado!");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Ticket cadastrado!");
+            }
+            
         } catch (Exception ex) {
           Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
         }
