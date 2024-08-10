@@ -5,9 +5,9 @@
 package br.edu.ifsul.cc.lpoo.estacione.dao;
 
 import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
+import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
 import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -137,6 +137,17 @@ public class PersistenciaJPA implements InterfacePersistencia{
         EntityManager em = getEntityManager();
          try {
            return em.createNamedQuery("Ticket.orderbyid").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+       
+    }
+    
+    public List<Estacionamento> getEstacione() {
+        EntityManager em = getEntityManager();
+         try {
+           return em.createNamedQuery("Estacionamento.orderbyid").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

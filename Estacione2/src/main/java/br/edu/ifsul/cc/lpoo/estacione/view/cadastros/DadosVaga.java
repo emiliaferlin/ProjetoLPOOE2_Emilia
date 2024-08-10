@@ -6,7 +6,9 @@ package br.edu.ifsul.cc.lpoo.estacione.view.cadastros;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.dao.VagaAtualizarListner;
+import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class DadosVaga extends javax.swing.JFrame {
     public DadosVaga() {
         initComponents();
         persistencia = new PersistenciaJPA();
+        listarEstacione();
     }
     
     private VagaAtualizarListner listener;
@@ -37,6 +40,18 @@ public class DadosVaga extends javax.swing.JFrame {
             listener.onVagaAtualizada();
         }
         dispose();
+    }
+    
+    public void listarEstacione() {
+        listEstacione.removeAll();
+        persistencia = new PersistenciaJPA();
+        persistencia.conexaoAberta();
+        List<Estacionamento> list = persistencia.getEstacione();
+        for (Estacionamento p : list) {
+            listEstacione.addItem(p);
+        }
+
+        persistencia.fecharConexao();
     }
 
     /**
@@ -57,6 +72,8 @@ public class DadosVaga extends javax.swing.JFrame {
         numero = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         disponibilidade = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        listEstacione = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +105,14 @@ public class DadosVaga extends javax.swing.JFrame {
         disponibilidade.setRows(5);
         jScrollPane2.setViewportView(disponibilidade);
 
+        jLabel4.setText("Estacione:");
+
+        listEstacione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listEstacioneActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,9 +136,13 @@ public class DadosVaga extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                    .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
@@ -129,7 +158,11 @@ public class DadosVaga extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(listEstacione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar))
@@ -148,15 +181,21 @@ public class DadosVaga extends javax.swing.JFrame {
         try {
             persistencia.conexaoAberta();
             Vaga a = new Vaga();
+            if(numero.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Insira o número da vaga!");
+                return;
+            }
             a.setNumero(Integer.parseInt(numero.getText()));
             if(disponibilidade.getText().contains("t")){
                 a.setDisponivel(true);
             }else{
                 a.setDisponivel(false);
             }
+            Estacionamento est = (Estacionamento) listEstacione.getSelectedItem();
+            a.setEstacionamento(est);
             
             persistencia.persist(a);
-            JOptionPane.showMessageDialog(rootPane, "Vaga Cadastrada!");
+            JOptionPane.showMessageDialog(rootPane, "Vaga cadastrada!");
         } catch (Exception ex) {
           Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,6 +204,10 @@ public class DadosVaga extends javax.swing.JFrame {
 
         fecharTelaCadastro();
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void listEstacioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listEstacioneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listEstacioneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,8 +251,10 @@ public class DadosVaga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<Estacionamento> listEstacione;
     private javax.swing.JTextArea numero;
     // End of variables declaration//GEN-END:variables
 }

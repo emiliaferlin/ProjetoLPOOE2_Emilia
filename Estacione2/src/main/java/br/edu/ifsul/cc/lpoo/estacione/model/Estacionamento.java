@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,6 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_estacionamento")
+@NamedQueries({@NamedQuery(name="Estacionamento.orderbyid", query="select e from Estacionamento e order by e.id asc")})
 public class Estacionamento implements Serializable{
     
     @Id
@@ -95,6 +98,9 @@ public class Estacionamento implements Serializable{
     }
     
     
-    
+    @Override
+    public String toString(){
+        return "Nome: " + getNome();
+    }
     
 }

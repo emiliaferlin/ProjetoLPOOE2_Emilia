@@ -5,6 +5,14 @@
 package br.edu.ifsul.cc.lpoo.estacione.view.cadastros;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.CarroAtualizadoListner;
+import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
+import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
+import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +23,12 @@ public class DadosCarros extends javax.swing.JFrame {
     /**
      * Creates new form DadosCarros
      */
+    PersistenciaJPA persistencia;
     public DadosCarros() {
         initComponents();
+        persistencia = new PersistenciaJPA();
+        listarEstacione();
+        listarTickets();
     }
     
     private CarroAtualizadoListner listener;
@@ -31,6 +43,30 @@ public class DadosCarros extends javax.swing.JFrame {
         }
         dispose();
     }
+    
+    public void listarEstacione() {
+        listEstacione.removeAll();
+        persistencia = new PersistenciaJPA();
+        persistencia.conexaoAberta();
+        List<Estacionamento> list = persistencia.getEstacione();
+        for (Estacionamento p : list) {
+            listEstacione.addItem(p);
+        }
+
+        persistencia.fecharConexao();
+    }
+    
+    public void listarTickets() {
+        listTicket.removeAll();
+        persistencia = new PersistenciaJPA();
+        persistencia.conexaoAberta();
+        List<Ticket> list = persistencia.listaTicktes();
+        for (Ticket p : list) {
+            listTicket.addItem(p);
+        }
+
+        persistencia.fecharConexao();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,21 +77,192 @@ public class DadosCarros extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        placa = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        modelo = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cor = new javax.swing.JTextArea();
+        btCancelar = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        listEstacione = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        listTicket = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Dados Carro");
+
+        jLabel2.setText("Placa:");
+
+        jLabel3.setText("Modelo:");
+
+        jLabel4.setText("Cor:");
+
+        placa.setColumns(20);
+        placa.setRows(5);
+        jScrollPane1.setViewportView(placa);
+
+        modelo.setColumns(20);
+        modelo.setRows(5);
+        jScrollPane2.setViewportView(modelo);
+
+        cor.setColumns(20);
+        cor.setRows(5);
+        jScrollPane3.setViewportView(cor);
+
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Estacione:");
+
+        listEstacione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listEstacioneActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Ticket:");
+
+        listTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listTicketActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3)
+                            .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(listTicket, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(listEstacione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(listTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCancelar)
+                    .addComponent(btSalvar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        try {
+            persistencia.conexaoAberta();
+            Carro a = new Carro();
+            if(placa.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Insira a placa do carro!");
+                return;
+            }
+            a.setPlaca(placa.getText());
+            if(modelo.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Insira o modelo do carro");
+                return;
+            }
+            a.setModelo(modelo.getText());
+            if(cor.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Insira a cor do carro");
+                return;
+            }
+            a.setCor(cor.getText());
+            Estacionamento est = (Estacionamento) listEstacione.getSelectedItem();
+            a.setEstacionamento(est);
+            Ticket tic = (Ticket) listTicket.getSelectedItem();
+            a.setTicket(tic);
+            
+            persistencia.persist(a);
+            JOptionPane.showMessageDialog(rootPane, "Carro cadastrado!");
+        } catch (Exception ex) {
+          Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        persistencia.fecharConexao();
+
+        fecharTelaCadastro();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void listEstacioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listEstacioneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listEstacioneActionPerformed
+
+    private void listTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTicketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listTicketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,5 +300,21 @@ public class DadosCarros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JTextArea cor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JComboBox<Estacionamento> listEstacione;
+    private javax.swing.JComboBox<Ticket> listTicket;
+    private javax.swing.JTextArea modelo;
+    private javax.swing.JTextArea placa;
     // End of variables declaration//GEN-END:variables
 }

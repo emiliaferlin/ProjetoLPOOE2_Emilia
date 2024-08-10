@@ -4,10 +4,10 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.view;
 
+import br.edu.ifsul.cc.lpoo.estacione.dao.CarroAtualizadoListner;
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
-import br.edu.ifsul.cc.lpoo.estacione.dao.TicketAtualizadoListner;
-import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
-import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosTickets;
+import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
+import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosCarros;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -16,16 +16,16 @@ import javax.swing.JOptionPane;
  *
  * @author Mili
  */
-public class TelaTickets extends javax.swing.JFrame {
+public class ListagemCarros extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaTickets
+     * Creates new form ChegouCarroCadastro
      */
     PersistenciaJPA persistencia;
-    public TelaTickets() {
+    public ListagemCarros() {
         initComponents();
         persistencia = new PersistenciaJPA();
-        atualizarListaTickets();
+        atualizarListaCarros();
     }
 
     /**
@@ -37,24 +37,24 @@ public class TelaTickets extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listTickets = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        btNovo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listCarro = new javax.swing.JList<>();
+        btAdicionar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(listTickets);
+        jLabel1.setText("Listagem de Carros");
 
-        jLabel1.setText("Listagem de Tickets");
+        jScrollPane1.setViewportView(listCarro);
 
-        btNovo.setText("Novo");
-        btNovo.addActionListener(new java.awt.event.ActionListener() {
+        btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovoActionPerformed(evt);
+                btAdicionarActionPerformed(evt);
             }
         });
 
@@ -83,36 +83,34 @@ public class TelaTickets extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btNovo)
-                        .addGap(39, 39, 39)
+                        .addComponent(btAdicionar)
+                        .addGap(38, 38, 38)
                         .addComponent(btEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(btRemover)
-                        .addGap(37, 37, 37)
-                        .addComponent(btVoltar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(40, 40, 40)
+                        .addComponent(btVoltar)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btNovo)
+                    .addComponent(btAdicionar)
                     .addComponent(btEditar)
                     .addComponent(btRemover)
                     .addComponent(btVoltar))
@@ -122,64 +120,63 @@ public class TelaTickets extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        DadosTickets telaCarro = new DadosTickets();
-        telaCarro.setListener(new TicketAtualizadoListner() {
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        DadosCarros telaCarro = new DadosCarros();
+        telaCarro.setListener(new CarroAtualizadoListner() {
                 @Override
-                public void onTicketAtualizado() {
-                    atualizarListaTickets();
+                public void onCarroAtualizada() {
+                    atualizarListaCarros();
                 }
             });
         telaCarro.setVisible(true);
-        atualizarListaTickets();
-    }//GEN-LAST:event_btNovoActionPerformed
+        atualizarListaCarros();
+    }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-        Ticket ticketSelecionada = listTickets.getSelectedValue();
-        if (ticketSelecionada != null) {
+        Carro carroSelecionada = listCarro.getSelectedValue();
+        if (carroSelecionada != null) {
             int confirmacaoDel = JOptionPane.showConfirmDialog(rootPane,
-                    "Tem certeza que deseja remover este ticket " + ticketSelecionada.getNumero());
+                    "Tem certeza que deseja remover este Carro " + carroSelecionada.getPlaca());
             if (confirmacaoDel == JOptionPane.YES_OPTION) {
                 try {
                     persistencia = new PersistenciaJPA();
                     persistencia.conexaoAberta();
-                    persistencia.remover(ticketSelecionada);
+                    persistencia.remover(carroSelecionada);
                     persistencia.fecharConexao();
-                    atualizarListaTickets();
+                    atualizarListaCarros();
 
                 } catch (Exception e) {
-                    System.err.println("Erro ao excluir Ticket: " + e.getMessage());
+                    System.err.println("Erro ao excluir Carro: " + e.getMessage());
                 } finally {
                     persistencia.fecharConexao();
                 }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane,
-                    "Nenhuma ticket selecionada");
+                    "Nenhuma carro selecionado!");
         }
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
-    
-    private void atualizarListaTickets() {
-        listTickets.clearSelection();
+     
+    private void atualizarListaCarros() {
+        listCarro.clearSelection();
         persistencia.conexaoAberta();
-        List<Ticket> tic = persistencia.listaTicktes();
-        DefaultListModel<Ticket> tickets = new DefaultListModel<>();
-        for (Ticket t : tic) {
-            tickets.addElement(t);
+        List<Carro> car = persistencia.listaCarros();
+        DefaultListModel<Carro> carros = new DefaultListModel<>();
+        for (Carro v : car) {
+            carros.addElement(v);
         }
         
-        listTickets.setModel(tickets);
+        listCarro.setModel(carros);
         persistencia.fecharConexao();
     }
-    
     
     /**
      * @param args the command line arguments
@@ -198,31 +195,30 @@ public class TelaTickets extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListagemCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListagemCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListagemCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaTickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListagemCarros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaTickets().setVisible(true);
+                new ListagemCarros().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btEditar;
-    private javax.swing.JButton btNovo;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Ticket> listTickets;
+    private javax.swing.JList<Carro> listCarro;
     // End of variables declaration//GEN-END:variables
 }

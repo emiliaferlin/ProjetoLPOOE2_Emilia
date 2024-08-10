@@ -146,7 +146,7 @@ public class ListagemVagas extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(rootPane,
-                    "Nenhuma vaga selecionada");
+                    "Nenhuma vaga selecionada!");
         }
     }//GEN-LAST:event_removerVagaActionPerformed
     
