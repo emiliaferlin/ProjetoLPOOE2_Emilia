@@ -133,7 +133,27 @@ public class ListagemCarros extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
+        Carro carroSelecionado = listCarro.getSelectedValue();
+        //persistencia.conexaoAberta();
+        if (carroSelecionado != null) {
+            DadosCarros telaCarro = new DadosCarros();
+            
+            telaCarro.setCarro(carroSelecionado);
+            telaCarro.setListener(new CarroAtualizadoListner() {
+                @Override
+                public void onCarroAtualizada() {
+                    atualizarListaCarros();
+                }
+            });
+            telaCarro.setVisible(true);
+
+
+           
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um carro antes");
+        }
+        
+        atualizarListaCarros();
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed

@@ -24,6 +24,7 @@ public class DadosCarros extends javax.swing.JFrame {
      * Creates new form DadosCarros
      */
     PersistenciaJPA persistencia;
+    private Carro carro;
     public DadosCarros() {
         initComponents();
         persistencia = new PersistenciaJPA();
@@ -66,6 +67,21 @@ public class DadosCarros extends javax.swing.JFrame {
         }
 
         persistencia.fecharConexao();
+    }
+    
+    public void setCarro(Carro carro) {
+        this.carro = carro;
+        carregarDadosCarro();
+    }
+
+    private void carregarDadosCarro() {
+        if (carro != null) {
+            placa.setText(carro.getPlaca());
+            modelo.setText(carro.getModelo());
+            cor.setText(carro.getCor());
+            listEstacione.setSelectedItem(carro.getEstacionamento());
+            listTicket.setSelectedItem(carro.getTicket());
+        }
     }
 
     /**

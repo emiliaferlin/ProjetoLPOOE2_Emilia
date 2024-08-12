@@ -45,6 +45,7 @@ br\edu\ifsul\cc\lpoo\estacione\view\ListagemTickets$3.class
 br\edu\ifsul\cc\lpoo\estacione\view\cadastros\DadosCarros$1.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros$4.class
 br\edu\ifsul\cc\lpoo\estacione\view\MenuEstacione$4.class
+br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros$7.class
 br\edu\ifsul\cc\lpoo\estacione\dao\VagaAtualizarListner.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemVagas$7.class
 br\edu\ifsul\cc\lpoo\estacione\view\ListagemCarros$1.class

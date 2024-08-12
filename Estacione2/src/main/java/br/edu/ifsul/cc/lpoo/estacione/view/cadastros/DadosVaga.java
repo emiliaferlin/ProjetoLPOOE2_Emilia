@@ -30,6 +30,8 @@ public class DadosVaga extends javax.swing.JFrame {
         persistencia = new PersistenciaJPA();
         listarEstacione();
         listarTickets();
+        
+        
     }
     
     private VagaAtualizarListner listener;

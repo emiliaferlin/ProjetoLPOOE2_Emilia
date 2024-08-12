@@ -31,6 +31,8 @@ public class DadosTickets extends javax.swing.JFrame {
         persistencia = new PersistenciaJPA();
         listarCarros();
         listarVagas();
+        
+        
     }
     
     private TicketAtualizadoListner listener;
