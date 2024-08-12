@@ -240,7 +240,12 @@ public class DadosCarros extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
             persistencia.conexaoAberta();
-            Carro a = new Carro();
+            Carro a;
+            if(carro != null){
+               a = (Carro) persistencia.find(Carro.class, carro.getId()); 
+            }else{
+                a = new Carro();
+            }
             if(placa.getText().isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Insira a placa do carro!");
                 return;
@@ -262,9 +267,14 @@ public class DadosCarros extends javax.swing.JFrame {
             a.setTicket(tic);
             
             persistencia.persist(a);
-            JOptionPane.showMessageDialog(rootPane, "Carro cadastrado!");
+            if(carro != null){
+                JOptionPane.showMessageDialog(rootPane, "Carro editado!");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Carro cadastrado!");
+            }
+            
         } catch (Exception ex) {
-          Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(DadosCarros.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         persistencia.fecharConexao();

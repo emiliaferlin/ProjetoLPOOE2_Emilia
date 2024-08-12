@@ -283,7 +283,7 @@ public class DadosTickets extends javax.swing.JFrame {
             }
             
         } catch (Exception ex) {
-          Logger.getLogger(DadosVaga.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(DadosTickets.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         persistencia.fecharConexao();

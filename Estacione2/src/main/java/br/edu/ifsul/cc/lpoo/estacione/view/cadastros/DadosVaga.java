@@ -29,9 +29,7 @@ public class DadosVaga extends javax.swing.JFrame {
         initComponents();
         persistencia = new PersistenciaJPA();
         listarEstacione();
-        listarTickets();
-        
-        
+        listarTickets();        
     }
     
     private VagaAtualizarListner listener;
@@ -58,6 +56,7 @@ public class DadosVaga extends javax.swing.JFrame {
             numero.setText(Integer.toString(vaga.getNumero()));
             disponibilidade.setText(Boolean.toString(vaga.isDisponivel()));
             listEstacione.setSelectedItem(vaga.getEstacionamento());
+            System.out.println(vaga.getTicket());
             listTicket.setSelectedItem(vaga.getTicket());
         }
     }
