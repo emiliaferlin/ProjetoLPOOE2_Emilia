@@ -270,12 +270,31 @@ public class DadosTickets extends javax.swing.JFrame {
             
             Carro car = (Carro) listCarro.getSelectedItem();
             Vaga vag = (Vaga) listVaga.getSelectedItem();
-            a.setCarro(car);
-            a.setVaga(vag);
-            vag.setTicket(a);
+            vag = (Vaga) persistencia.find(Vaga.class, vag.getId());
+            if(ticket != null && vag.getId() != ticket.getVaga().getId()){
+                JOptionPane.showMessageDialog(rootPane, "Ticket não pode ser trasnferido para outra vaga!");
+                return;
+            }else{
+                a.setVaga(vag);
+                vag.setTicket(a);
+                vag.setDisponivel(true);
+            }
+            
+            
+            car = (Carro) persistencia.find(Carro.class, car.getId());
+            if(ticket != null && car.getId() != ticket.getCarro().getId()){
+                JOptionPane.showMessageDialog(rootPane, "Ticket não pode ser trasnferido para outro carro!");
+                return;
+            }else{
+                a.setCarro(car);
+                car.setTicket(a);
+            }
+           
             
             
             persistencia.persist(a);
+            persistencia.persist(vag);
+            persistencia.persist(car);
             if(ticket != null){
                 JOptionPane.showMessageDialog(rootPane, "Ticket editado!");
             }else{

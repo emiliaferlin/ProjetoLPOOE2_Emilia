@@ -6,7 +6,9 @@ package br.edu.ifsul.cc.lpoo.estacione.view;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.dao.TicketAtualizadoListner;
+import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
 import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
+import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
 import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosTickets;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -167,6 +169,34 @@ public class ListagemTickets extends javax.swing.JFrame {
                 try {
                     persistencia = new PersistenciaJPA();
                     persistencia.conexaoAberta();
+                    //pega ticket
+                    ticketSelecionada = (Ticket) persistencia.find(Ticket.class, ticketSelecionada.getId());
+                    
+                    if(ticketSelecionada.getVaga() != null){
+                        //remover vaga 
+                        Vaga vag = (Vaga) persistencia.find(Vaga.class, ticketSelecionada.getVaga().getId());
+                        vag.setTicket(null);
+                        ticketSelecionada.setVaga(null);
+                        persistencia.persist(vag);
+                        
+                    }
+                   
+                    
+                    if(ticketSelecionada.getCarro() != null){
+                     //Remover carro
+                        Carro car = (Carro) persistencia.find(Carro.class, ticketSelecionada.getCarro().getId());
+                        car.setTicket(null);
+                        ticketSelecionada.setCarro(null);
+                        persistencia.persist(car);
+                          
+                    }
+                    
+                    //se caso tiver um carro ou vaga vinculado, remove este para pode excluir da tabela
+                    if(ticketSelecionada.getVaga() == null && ticketSelecionada.getCarro() == null){
+                        //periste ticket e já remove
+                        persistencia.persist(ticketSelecionada);
+                    }
+                    
                     persistencia.remover(ticketSelecionada);
                     persistencia.fecharConexao();
                     atualizarListaTickets();

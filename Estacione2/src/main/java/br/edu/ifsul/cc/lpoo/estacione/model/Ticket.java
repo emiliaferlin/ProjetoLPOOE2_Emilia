@@ -134,7 +134,7 @@ public class Ticket implements Serializable{
     
     @Override
     public String toString(){
-        return "Número ticket: " + getNumero() + " valor total: " + getValorTotal();
+        return "Número ticket: " + getNumero() + " Valor total: " + getValorTotal();
     }
     
     

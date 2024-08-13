@@ -94,8 +94,8 @@ public class Vaga implements Serializable{
     
     @Override
     public String toString(){
-        return "Número vaga: " + getNumero() + " Disponível: " + isDisponivel();
+        return " Número vaga: " + getNumero() + " Disponível: " + isDisponivel();
     }
-   
+    
     
 }

@@ -6,6 +6,7 @@ package br.edu.ifsul.cc.lpoo.estacione.view;
 
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.dao.VagaAtualizarListner;
+import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
 import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosVaga;
 import java.util.List;
@@ -145,6 +146,17 @@ public class ListagemVagas extends javax.swing.JFrame {
                 try {
                     persistencia = new PersistenciaJPA();
                     persistencia.conexaoAberta();
+                     
+                    //se caso tiver um ticket vinculado, remove este para pode excluir da tabela
+                    if(vagaSelecionada.getTicket() != null){
+                        vagaSelecionada = (Vaga) persistencia.find(Vaga.class, vagaSelecionada.getId());
+                        Ticket tic = (Ticket) persistencia.find(Ticket.class, vagaSelecionada.getTicket().getId());
+                        tic.setVaga(null);
+                        vagaSelecionada.setTicket(null);
+                        persistencia.persist(tic);
+                        persistencia.persist(vagaSelecionada);
+                    }
+                    
                     persistencia.remover(vagaSelecionada);
                     persistencia.fecharConexao();
                     atualizarListaVagas();

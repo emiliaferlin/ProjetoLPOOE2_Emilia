@@ -102,7 +102,8 @@ public class Carro implements Serializable{
     
     @Override
     public String toString(){
-        return "Placa: " + getPlaca()+ " modelo: " + getModelo();
+        return " Placa: " + getPlaca()+ " Modelo: " + getModelo();
     }
+    
     
 }

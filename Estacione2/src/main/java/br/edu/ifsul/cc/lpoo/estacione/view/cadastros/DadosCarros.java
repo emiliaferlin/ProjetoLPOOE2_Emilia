@@ -8,7 +8,6 @@ import br.edu.ifsul.cc.lpoo.estacione.dao.CarroAtualizadoListner;
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
 import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
-import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,6 @@ public class DadosCarros extends javax.swing.JFrame {
         initComponents();
         persistencia = new PersistenciaJPA();
         listarEstacione();
-        listarTickets();
     }
     
     private CarroAtualizadoListner listener;
@@ -57,17 +55,7 @@ public class DadosCarros extends javax.swing.JFrame {
         persistencia.fecharConexao();
     }
     
-    public void listarTickets() {
-        listTicket.removeAll();
-        persistencia = new PersistenciaJPA();
-        persistencia.conexaoAberta();
-        List<Ticket> list = persistencia.listaTicktes();
-        for (Ticket p : list) {
-            listTicket.addItem(p);
-        }
-
-        persistencia.fecharConexao();
-    }
+   
     
     public void setCarro(Carro carro) {
         this.carro = carro;
@@ -80,7 +68,6 @@ public class DadosCarros extends javax.swing.JFrame {
             modelo.setText(carro.getModelo());
             cor.setText(carro.getCor());
             listEstacione.setSelectedItem(carro.getEstacionamento());
-            listTicket.setSelectedItem(carro.getTicket());
         }
     }
 
@@ -107,8 +94,6 @@ public class DadosCarros extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         listEstacione = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        listTicket = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,14 +139,6 @@ public class DadosCarros extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Ticket:");
-
-        listTicket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listTicketActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,15 +160,13 @@ public class DadosCarros extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3)
-                            .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(listTicket, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(listEstacione, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -219,11 +194,7 @@ public class DadosCarros extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(listEstacione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(listTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btSalvar))
@@ -263,8 +234,6 @@ public class DadosCarros extends javax.swing.JFrame {
             a.setCor(cor.getText());
             Estacionamento est = (Estacionamento) listEstacione.getSelectedItem();
             a.setEstacionamento(est);
-            Ticket tic = (Ticket) listTicket.getSelectedItem();
-            a.setTicket(tic);
             
             persistencia.persist(a);
             if(carro != null){
@@ -285,10 +254,6 @@ public class DadosCarros extends javax.swing.JFrame {
     private void listEstacioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listEstacioneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listEstacioneActionPerformed
-
-    private void listTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTicketActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listTicketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,12 +299,10 @@ public class DadosCarros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<Estacionamento> listEstacione;
-    private javax.swing.JComboBox<Ticket> listTicket;
     private javax.swing.JTextArea modelo;
     private javax.swing.JTextArea placa;
     // End of variables declaration//GEN-END:variables

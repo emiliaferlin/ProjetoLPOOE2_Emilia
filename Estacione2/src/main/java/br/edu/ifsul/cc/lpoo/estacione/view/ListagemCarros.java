@@ -7,6 +7,8 @@ package br.edu.ifsul.cc.lpoo.estacione.view;
 import br.edu.ifsul.cc.lpoo.estacione.dao.CarroAtualizadoListner;
 import br.edu.ifsul.cc.lpoo.estacione.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.estacione.model.Carro;
+import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
+import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
 import br.edu.ifsul.cc.lpoo.estacione.view.cadastros.DadosCarros;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -165,6 +167,17 @@ public class ListagemCarros extends javax.swing.JFrame {
                 try {
                     persistencia = new PersistenciaJPA();
                     persistencia.conexaoAberta();
+                    
+                    //se caso tiver um ticket vinculado, remove este para pode excluir da tabela
+                    if(carroSelecionada.getTicket() != null){
+                        carroSelecionada = (Carro) persistencia.find(Carro.class, carroSelecionada.getId()); 
+                        Ticket tic = (Ticket) persistencia.find(Ticket.class, carroSelecionada.getTicket().getId());
+                        tic.setCarro(null);
+                        carroSelecionada.setTicket(null);
+                        persistencia.persist(tic);
+                        persistencia.persist(carroSelecionada);
+                    }
+                    
                     persistencia.remover(carroSelecionada);
                     persistencia.fecharConexao();
                     atualizarListaCarros();
